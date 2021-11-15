@@ -33,14 +33,19 @@
           console.log("getCurrentPosition error", error);
         }
 
-        Geolocation.getCurrentPosition(success, error);
+        const options = {
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: 0,
+        };
+
+        Geolocation.getCurrentPosition(success, error, options);
       }
 
       let id;
       function watchPosition() {
         function success(position) {
           createLocationElement(position);
-
           console.log("watching", id, position);
         }
 
