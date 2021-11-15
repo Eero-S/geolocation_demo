@@ -7,21 +7,22 @@
     <title>Geolocation demo</title>
   </head>
   <body>
-    <button style="margin-bottom: 20px" id="getPosition">
-      Get my location
-    </button>
-    <br />
+    <button style="margin-bottom: 20px" id="getPosition">Get my location</button
+    ><br />
     <button style="margin-bottom: 20px" id="watchPostition">
-      Watch my location
-    </button>
-    <br />
-    <button style="margin-bottom: 20px" id="endWatch">Stop watching</button>
+      Watch my location</button
+    ><br />
+    <button style="margin-bottom: 20px" id="endWatch">Stop watching</button
+    ><br />
+
+    <div id="div"><p style="margin-bottom: 10px">watchPosition results</p></div>
 
     <script>
-      const Geolocation = navigator.geolocation;
       if (!navigator.geolocation) {
         console.log("Geolocation is not supported by your browser");
       }
+
+      const Geolocation = navigator.geolocation;
 
       function getPosition() {
         function success(position) {
@@ -38,8 +39,9 @@
       let id;
       function watchPosition() {
         function success(position) {
-          console.log("watching", id);
-          console.log(position);
+          createLocationElement(position);
+
+          console.log("watching", id, position);
         }
 
         function error(error) {
@@ -48,8 +50,8 @@
 
         const options = {
           enableHighAccuracy: false,
-          timeout: 5000,
-          maximumAge: 0,
+          timeout: 1000,
+          maximumAge: 5000,
         };
 
         id = Geolocation.watchPosition(success, error, options);
@@ -67,6 +69,15 @@
         .querySelector("#watchPostition")
         .addEventListener("click", watchPosition);
       document.querySelector("#endWatch").addEventListener("click", endWatch);
+
+      function createLocationElement(position) {
+        const p = document.createElement("p");
+        p.innerHTML =
+          position.coords.latitude.toString() +
+          ", " +
+          position.coords.longitude.toString();
+        document.getElementById("div").appendChild(p);
+      }
     </script>
   </body>
 </html>
