@@ -10,10 +10,12 @@
     <button style="margin-bottom: 20px" id="getPosition">
       Get my location
     </button>
-
     <br />
-
-    <button id="watchPostition">Watch my location</button>
+    <button style="margin-bottom: 20px" id="watchPostition">
+      Watch my location
+    </button>
+    <br />
+    <button style="margin-bottom: 20px" id="endWatch">Stop watching</button>
 
     <script>
       const Geolocation = navigator.geolocation;
@@ -33,8 +35,10 @@
         Geolocation.getCurrentPosition(success, error);
       }
 
+      let id;
       function watchPosition() {
         function success(position) {
+          console.log("watching", id);
           console.log(position);
         }
 
@@ -49,7 +53,11 @@
         };
 
         id = Geolocation.watchPosition(success, error, options);
-        console.log("ID", id);
+      }
+
+      function endWatch() {
+        console.log("stopped watching", id);
+        navigator.geolocation.clearWatch(id);
       }
 
       document
@@ -58,6 +66,7 @@
       document
         .querySelector("#watchPostition")
         .addEventListener("click", watchPosition);
+      document.querySelector("#endWatch").addEventListener("click", endWatch);
     </script>
   </body>
 </html>
