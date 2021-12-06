@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geolocation demo</title>
+  </head>
+  <body>
+      <h1>Subpage</h1>
+    <button style="margin-bottom: 20px" id="getPosition">Get my location</button
+    ><br />
+    <button style="margin-bottom: 20px" id="watchPostition">
+      Watch my location</button
+    ><br />
+    <button style="margin-bottom: 20px" id="endWatch">Stop watching</button
+    ><br />
+
+    <div id="div"><p style="margin-bottom: 10px">watchPosition results</p></div>
+
+    <script>
+      if (!navigator.geolocation) {
+        console.log("Geolocation is not supported by your browser");
+      }
+
+      const Geolocation = navigator.geolocation;
+
+      function getPosition() {
+        function success(position) {
+          console.log("getCurrentPosition success", position);
+        }
+
+        function error(error) {
+          console.log("getCurrentPosition error", error);
+        }
+
+        const options = {
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: 0,
+        };
+
+        Geolocation.getCurrentPosition(success, error, options);
+      }
+
+      let id;
+      function watchPosition() {
+        function success(position) {
+          createLocationElement(position);
+          console.log("watching", id, position);
+        }
+
+        function error(error) {
+          console.log("error", error);
+        }
+
+        const options = {
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: 0,
+        };
+
+        id = Geolocation.watchPosition(success, error, options);
+      }
+
+      function endWatch() {
+        console.log("stopped watching", id);
+        navigator.geolocation.clearWatch(id);
+      }
+
+      document
+        .querySelector("#getPosition")
+        .addEventListener("click", getPosition);
+      document
+        .querySelector("#watchPostition")
+        .addEventListener("click", watchPosition);
+      document.querySelector("#endWatch").addEventListener("click", endWatch);
+
+      function createLocationElement(position) {
+        const p = document.createElement("p");
+        p.innerHTML =
+          position.coords.latitude.toString() +
+          ", " +
+          position.coords.longitude.toString();
+        document.getElementById("div").appendChild(p);
+      }
+    </script>
+  </body>
+</html>
