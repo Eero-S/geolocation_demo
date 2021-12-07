@@ -11,6 +11,7 @@
     
     <button style="margin:20px 0" id="getPosition">Get my location</button
     ><br />
+
     <button style="margin-bottom: 20px" id="watchPostition">
       Watch my location</button
     ><br />
@@ -18,6 +19,8 @@
     ><br />
 
     <div id="div"><p style="margin-bottom: 10px">watchPosition results</p></div>
+
+    <div id="getResults"><p style="margin-bottom: 10px">watchPosition results</p></div>
 
     <script>
       if (!navigator.geolocation) {
@@ -28,6 +31,7 @@
 
       function getPosition() {
         function success(position) {
+          createLocationElementGet(position)
           console.log("getCurrentPosition success", position);
         }
 
@@ -84,6 +88,15 @@
           ", " +
           position.coords.longitude.toString();
         document.getElementById("div").appendChild(p);
+      }
+
+      function createLocationElementGet(position) {
+        const p = document.createElement("p");
+        p.innerHTML =
+          position.coords.latitude.toString() +
+          ", " +
+          position.coords.longitude.toString();
+        document.getElementById("getResults").appendChild(p);
       }
     </script>
   </body>
