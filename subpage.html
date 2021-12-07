@@ -7,35 +7,14 @@
     <title>Geolocation demo</title>
   </head>
   <body>
-    <h1>Subpage</h1>
-
-    <div id="div"><p style="margin-bottom: 10px">watchPosition results</p></div>
-
+    <div style="display:grid;place-items: center;height:100vh;font-size:1.5rem;font-family:roboto">
+      <div>
+        <h3>Subpage</h3>
+        <div id="div"><p style="margin-bottom: 10px">watchPosition results</p></div>
+      </div>
+      </div>
+      
     <script>
-      if (!navigator.geolocation) {
-        console.log("Geolocation is not supported by your browser");
-      }
-
-      const Geolocation = navigator.geolocation;
-
-      function getPosition() {
-        function success(position) {
-          console.log("getCurrentPosition success", position);
-        }
-
-        function error(error) {
-          console.log("getCurrentPosition error", error);
-        }
-
-        const options = {
-          enableHighAccuracy: false,
-          timeout: 5000,
-          maximumAge: 0,
-        };
-
-        Geolocation.getCurrentPosition(success, error, options);
-      }
-
       let id;
       function watchPosition() {
         function success(position) {
@@ -53,13 +32,10 @@
           maximumAge: 0,
         };
 
-        id = Geolocation.watchPosition(success, error, options);
+        id = navigator.geolocation.watchPosition(success, error, options);
       }
 
-      function endWatch() {
-        console.log("stopped watching", id);
-        navigator.geolocation.clearWatch(id);
-      }
+
 
       function createLocationElement(position) {
         const p = document.createElement("p");

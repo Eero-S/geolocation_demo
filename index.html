@@ -7,6 +7,8 @@
     <title>Geolocation demo</title>
   </head>
   <body>
+    <div style="display:grid;place-items: center;height:100vh;font-size:1.5rem;font-family:roboto">
+    <div>
     <a href="subpage.html">Go to subpage</a><br />
     
     <button style="margin:20px 0" id="getPosition">Get my location</button
@@ -20,8 +22,9 @@
 
     <div id="div"><p style="margin-bottom: 10px">watchPosition results</p></div>
 
-    <div id="getResults"><p style="margin-bottom: 10px">watchPosition results</p></div>
-
+    <div id="getResults"><p style="margin:10px 0">getCurrentPosition results</p></div>
+    </div>
+    </div>
     <script>
       if (!navigator.geolocation) {
         console.log("Geolocation is not supported by your browser");
